@@ -1,30 +1,57 @@
-import { Categoria } from 'src/dominio/categoria/modelo/categoria';
 import { ErrorValorRequerido } from 'src/dominio/errores/error-valor-requerido';
+import { ErrorLongitudInvalida } from 'src/dominio/errores/error-longitud-invalida';
+import { Categoria } from 'src/dominio/categoria/modelo/categoria';
 
+const NUMERO_MAXIMO_CARACTERES_DETALLE = 100;
 export class Producto {
   readonly #nombre: string;
   readonly #precio: number;
-  readonly #descripcion: string;
+  readonly #detalle: string;
   readonly #categoria: Categoria;
+  readonly #nombreImagen: string;
 
   constructor(
     nombre: string,
     precio: number,
-    descripcion: string,
+    detalle: string,
     categoria: Categoria,
+    nombreImagen: string,
   ) {
-    this.validarCampo(nombre, 'Nombre');
-    this.validarCampo(descripcion, 'Descripcion');
+    this.validarTamanoDetalle(detalle);
+    this.validarNombre(nombre);
+    this.validarPrecio(precio);
+    this.validarNombreImagen(nombreImagen);
     this.#nombre = nombre;
     this.#precio = precio;
-    this.#descripcion = descripcion;
+    this.#detalle = detalle;
     this.#categoria = categoria;
+    this.#nombreImagen = nombreImagen;
   }
 
-  private validarCampo(campoAValidar: string, nombreCampo: string) {
-    if (!campoAValidar) {
+  private validarTamanoDetalle(detalle: string) {
+    if (detalle.length > NUMERO_MAXIMO_CARACTERES_DETALLE) {
+      throw new ErrorLongitudInvalida(
+        `El tamaño máximo del detalle debe ser ${NUMERO_MAXIMO_CARACTERES_DETALLE}`,
+      );
+    }
+  }
+
+  private validarNombre(nombre: string) {
+    if (!nombre) {
+      throw new ErrorValorRequerido('El nombre esta vacio, es requerido');
+    }
+  }
+
+  private validarPrecio(precio: number) {
+    if (!precio) {
+      throw new ErrorValorRequerido('El precio esta vacio, es requerido');
+    }
+  }
+
+  private validarNombreImagen(nombreImagen: string) {
+    if (!nombreImagen) {
       throw new ErrorValorRequerido(
-        `El campo ${nombreCampo} esta vacio, es requerido`,
+        'El nombre de la imagen esta vacio, es requerido',
       );
     }
   }
@@ -37,11 +64,15 @@ export class Producto {
     return this.#precio;
   }
 
-  get descripcion(): string {
-    return this.#descripcion;
+  get detalle(): string {
+    return this.#detalle;
   }
 
   get categoria(): Categoria {
     return this.#categoria;
+  }
+
+  get nombreImagen(): string {
+    return this.#nombreImagen;
   }
 }

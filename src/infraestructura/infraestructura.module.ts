@@ -8,7 +8,7 @@ import { NodeEnv } from './configuracion/environment/env-node.enum';
 import { databaseConfigFactory } from './configuracion/database.config';
 // import { VentaModule } from './venta/venta.module';
 import { CategoriaModule } from './categoria/categoria.module';
-// import { ProductoModule } from './producto/producto.module';
+import { ProductoModule } from './producto/producto.module';
 
 @Module({
   providers: [AppLogger],
@@ -28,7 +28,7 @@ import { CategoriaModule } from './categoria/categoria.module';
     }),
     // UsuarioModule,
     // VentaModule,
-    // ProductoModule,
+    ProductoModule,
     CategoriaModule,
   ],
 })
