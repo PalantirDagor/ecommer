@@ -13,7 +13,6 @@ export class Categoria {
   }
   
   private validarCampo(campoAValidar: string, nombreCampo: string) {
-    console.log('ingreso_Categoria');
     if (!campoAValidar) {
       throw new ErrorValorRequerido(
         `El campo ${nombreCampo} esta vacio, es requerido`,

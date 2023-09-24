@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  Param,
   Patch,
   Post,
   Query,
@@ -17,6 +18,7 @@ import { ComandoConsultarCategoria } from 'src/aplicacion/categoria/comando/cons
 import { ComandoCambiarCategoria } from 'src/aplicacion/categoria/comando/cambiar-categoria.comando';
 import { ManejadorCambiarCategoria } from 'src/aplicacion/categoria/cambio/cambiar-categoria.manejador';
 import { ManejadorEliminarCategoria } from 'src/aplicacion/categoria/cambio/eliminar-categoria.manejador';
+import { ManejadorListarCategoria } from 'src/aplicacion/categoria/consulta/listar-categoria.manejador';
 
 @Controller('categorias')
 export class CategoriaControlador {
@@ -25,6 +27,7 @@ export class CategoriaControlador {
     private readonly _manejadorConsultarCategoria: ManejadorConsultarCategoria,
     private readonly _manejadorCambiarCategoria: ManejadorCambiarCategoria,
     private readonly _manejadorEliminarCategoria: ManejadorEliminarCategoria,
+    private readonly _manejadorListarCategoria: ManejadorListarCategoria,
   ) {}
 
   @Post()
@@ -33,13 +36,11 @@ export class CategoriaControlador {
     await this._manejadorRegistrarCategoria.ejecutar(comandoRegistrarCategoria);
   }
 
-  @Get()
+  @Get(':nombre')
   async consultarCategoria(
-    @Query() comandoConsultarCategoria: ComandoConsultarCategoria,
+    @Param('nombre') nombre: string,
   ): Promise<CategoriaDto> {
-    return this._manejadorConsultarCategoria.ejecutar(
-      comandoConsultarCategoria,
-    );
+    return this._manejadorConsultarCategoria.ejecutar(nombre);
   }
 
   @Patch()
@@ -52,5 +53,10 @@ export class CategoriaControlador {
   @Delete()
   async eliminarCategoria(@Query('nombre') nombre: string) {
     return this._manejadorEliminarCategoria.ejecutar(nombre);
+  }
+
+  @Get()
+  async listarCategorias(): Promise<CategoriaDto[]> {
+    return this._manejadorListarCategoria.ejecutar();
   }
 }

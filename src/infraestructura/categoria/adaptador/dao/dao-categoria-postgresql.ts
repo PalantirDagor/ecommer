@@ -12,15 +12,15 @@ export class DaoCategoriaPostgresql implements DaoCategoria {
     private readonly entityManager: EntityManager,
   ) {}
 
-  async consultar(nombre: string, descripcion: string): Promise<CategoriaDto> {
+  async consultar(nombre: string): Promise<CategoriaDto> {
     let respuesta: Array<CategoriaDto>;
     respuesta = await this.entityManager.query(
-      'SELECT u.nombre, u.descripcion FROM CATEGORIA u WHERE u.nombre = $1 AND u.descripcion = $2',
-      [nombre, descripcion],
+      'SELECT c.nombre, c.descripcion FROM CATEGORIA c WHERE c.nombre = $1',
+      [nombre],
     );
 
     if (respuesta.length === 0) {
-      throw new NotFoundException('Error de Credenciales o Usuario no Existe');
+      throw new NotFoundException('Error Categoria no Existe');
     }
 
     return respuesta[0];
@@ -53,6 +53,12 @@ export class DaoCategoriaPostgresql implements DaoCategoria {
     return this.entityManager.query(
       'DELETE FROM CATEGORIA u WHERE u.nombre = $1',
       [nombre],
+    );
+  }
+
+  async listar(): Promise<CategoriaDto[]> {
+    return this.entityManager.query(
+      'SELECT c.nombre, c.descripcion FROM CATEGORIA c',
     );
   }
 }

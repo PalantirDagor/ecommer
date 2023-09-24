@@ -13,7 +13,9 @@ export class DaoProductoPostgres implements DaoProducto {
 
   async listar(): Promise<ProductoDto[]> {
     return this.entityManager.query(
-      'SELECT p.nombre, p.precio, p.detalle, p.nombre_imagen AS "nombreImagen" FROM PRODUCTO p',
+      `SELECT p.nombre, p.precio, p.detalle, c.nombre AS "nombreCategoria", p.nombre_imagen AS "nombreImagen" 
+      FROM PRODUCTO p, CATEGORIA  c
+      WHERE c.id = p.categoria_id`,
     );
   }
 

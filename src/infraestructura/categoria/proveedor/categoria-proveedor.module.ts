@@ -11,6 +11,7 @@ import { CategoriaEntidad } from '../entidad/categoria.entidad';
 import { ManejadorConsultarCategoria } from 'src/aplicacion/categoria/consulta/consultar-categoria.manejador';
 import { ManejadorCambiarCategoria } from 'src/aplicacion/categoria/cambio/cambiar-categoria.manejador';
 import { ManejadorEliminarCategoria } from 'src/aplicacion/categoria/cambio/eliminar-categoria.manejador';
+import { ManejadorListarCategoria } from 'src/aplicacion/categoria/consulta/listar-categoria.manejador';
 
 @Module({
   imports: [TypeOrmModule.forFeature([CategoriaEntidad])],
@@ -26,6 +27,7 @@ import { ManejadorEliminarCategoria } from 'src/aplicacion/categoria/cambio/elim
     ManejadorConsultarCategoria,
     ManejadorCambiarCategoria,
     ManejadorEliminarCategoria,
+    ManejadorListarCategoria,
   ],
   exports: [
     ServicioRegistrarCategoria,
@@ -33,6 +35,7 @@ import { ManejadorEliminarCategoria } from 'src/aplicacion/categoria/cambio/elim
     ManejadorConsultarCategoria,
     ManejadorCambiarCategoria,
     ManejadorEliminarCategoria,
+    ManejadorListarCategoria,
     RepositorioCategoria,
     DaoCategoria,
   ],

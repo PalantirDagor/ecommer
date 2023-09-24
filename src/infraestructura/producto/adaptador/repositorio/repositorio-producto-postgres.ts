@@ -16,9 +16,14 @@ export class RepositorioProductoPostgres implements RepositorioProducto {
     private readonly entityManager: EntityManager,
   ) {}
 
-  /*async existeNombreProducto(nombre: string): Promise<boolean> {
-    return (await this.repositorio.count({ nombre })) > 0;
-  }*/
+  async existeNombreProducto(nombre: string): Promise<boolean> {
+    const numOcurrencia = await this.repositorio
+      .createQueryBuilder('producto')
+      .where('producto.nombre = :nombre', { nombre })
+      .getCount();
+
+    return numOcurrencia > 0;
+  }
 
   async guardar(producto: Producto) {
     const entidad = new ProductoEntidad();

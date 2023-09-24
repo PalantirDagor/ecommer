@@ -12,6 +12,15 @@ export class RepositorioCategoriaPostgresql implements RepositorioCategoria {
     private readonly repositorio: Repository<CategoriaEntidad>,
   ) {}
 
+  async existeNombreCategoria(nombre: string): Promise<boolean> {
+    const numOcurrencia = await this.repositorio
+      .createQueryBuilder('categoria')
+      .where('categoria.nombre = :nombre', { nombre })
+      .getCount();
+
+    return numOcurrencia > 0;
+  }
+
   async guardar(categoria: Categoria) {
     const entidad = new CategoriaEntidad();
     entidad.descripcion = categoria.descripcion;

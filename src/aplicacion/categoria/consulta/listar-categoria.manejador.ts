@@ -4,10 +4,10 @@ import { DaoCategoria } from 'src/dominio/categoria/puerto/dao/dao-categoria';
 import { CategoriaDto } from './dto/categoria.dto';
 
 @Injectable()
-export class ManejadorConsultarCategoria {
+export class ManejadorListarCategoria {
   constructor(private _daoCategoria: DaoCategoria) {}
 
-  async ejecutar(nombre: string): Promise<CategoriaDto> {
-    return this._daoCategoria.consultar(nombre);
+  async ejecutar(): Promise<CategoriaDto[]> {
+    return this._daoCategoria.listar();
   }
 }
