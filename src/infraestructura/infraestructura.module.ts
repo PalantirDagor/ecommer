@@ -1,6 +1,6 @@
 import * as Joi from 'joi';
 import { Module } from '@nestjs/common';
-// import { UsuarioModule } from './usuario/usuario.module';
+import { UsuarioModule } from './usuario/usuario.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppLogger } from './configuracion/ecommer-logger.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -26,7 +26,7 @@ import { ProductoModule } from './producto/producto.module';
           .required(),
       }),
     }),
-    // UsuarioModule,
+    UsuarioModule,
     // VentaModule,
     ProductoModule,
     CategoriaModule,

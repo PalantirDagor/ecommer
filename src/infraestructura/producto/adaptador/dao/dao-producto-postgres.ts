@@ -32,4 +32,28 @@ export class DaoProductoPostgres implements DaoProducto {
 
     return respuesta[0];
   }
+
+  async eliminar(nombre: string) {
+    return this.entityManager.query(
+      'DELETE FROM PRODUCTO p WHERE p.nombre = $1',
+      [nombre],
+    );
+  }
+
+  async cambiar(
+    nombre: string,
+    precio: number,
+    detalle: string,
+    nombreImagen: string,
+  ) {
+    let respuesta: Array<number>;
+    respuesta = await this.entityManager.query(
+      'UPDATE PRODUCTO SET precio = $1, detalle = $2 WHERE nombre = $3 AND nombre_imagen = $4',
+      [precio, detalle, nombre, nombreImagen],
+    );
+
+    if (!respuesta.includes(1)) {
+      throw new NotFoundException('Error del producto, verifique los datos');
+    }
+  }
 }

@@ -51,7 +51,7 @@ export class DaoCategoriaPostgresql implements DaoCategoria {
     );
 
     return this.entityManager.query(
-      'DELETE FROM CATEGORIA u WHERE u.nombre = $1',
+      'DELETE FROM CATEGORIA c WHERE c.nombre = $1',
       [nombre],
     );
   }
