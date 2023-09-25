@@ -71,3 +71,7 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+## Backend de la aplicación ecommer_front
+
+La aplicación ecommer_front es un Fronend en AngularJs que muestra los datos de este Backend, y la dirección donde reposa ese repocitorio del Frontend es la siguiente [Link](https://github.com/PalantirDagor/ecommer_front)
