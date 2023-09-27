@@ -18,6 +18,7 @@ import { ComandoRegistrarProducto } from 'src/aplicacion/producto/comando/regist
 import { ManejadorRegistrarProducto } from 'src/aplicacion/producto/comando/registrar-producto.manejador';
 import { ManejadorConsultarProducto } from 'src/aplicacion/producto/consulta/consultar-producto.manejador';
 import { ProductoDto } from 'src/aplicacion/producto/consulta/dto/producto.dto';
+import { ManejadorFiltrarProducto } from 'src/aplicacion/producto/consulta/filtrar-producto.manejador';
 import { ManejadorListarProducto } from 'src/aplicacion/producto/consulta/listar-producto.manejador';
 
 @Controller('productos')
@@ -28,6 +29,7 @@ export class ProductoControlador {
     private readonly _manejadorConsultarProducto: ManejadorConsultarProducto,
     private readonly _manejadorEliminarProducto: ManejadorEliminarProducto,
     private readonly _manejadorCambiarProducto: ManejadorCambiarProducto,
+    private readonly _manejadorFiltrarProducto: ManejadorFiltrarProducto,
   ) {}
 
   @Post()
@@ -36,17 +38,25 @@ export class ProductoControlador {
     await this._manejadorRegistrarProducto.ejecutar(comandoRegistrarProducto);
   }
 
-  @Get(':nombre')
-  async consultarProducto(
-    @Param('nombre') nombre: string,
-  ): Promise<ProductoDto> {
-    return this._manejadorConsultarProducto.ejecutar(nombre);
+  @Get(':nombreCategoria')
+  async filtrarProducto(
+    @Param('nombreCategoria') nombreCategoria: string,
+  ): Promise<ProductoDto[]> {
+    return this._manejadorFiltrarProducto.ejecutar(nombreCategoria);
   }
-
+  
   @Get()
   async listarProductos(): Promise<ProductoDto[]> {
     return this._manejadorListarProducto.ejecutar();
   }
+
+  @Get()
+  async consultarProducto(
+    @Query('nombre') nombre: string,
+  ): Promise<ProductoDto> {
+    return this._manejadorConsultarProducto.ejecutar(nombre);
+  }
+
 
   @Delete()
   async eliminarProducto(@Query('nombre') nombre: string) {

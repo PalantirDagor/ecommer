@@ -10,4 +10,5 @@ export abstract class DaoProducto {
     detalle: string,
     nombreImagen: string
   );
+  abstract filtrar(nombreCategoria: string): Promise<ProductoDto[]>;
 }

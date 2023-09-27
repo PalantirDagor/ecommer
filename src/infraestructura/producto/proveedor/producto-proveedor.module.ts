@@ -13,6 +13,7 @@ import { repositorioProductoProvider } from './repositorio/repositorio-producto.
 import { servicioRegistrarProductoProveedor } from './servicio/servicio-registrar-producto.proveedor';
 import { ManejadorEliminarProducto } from 'src/aplicacion/producto/cambio/eliminar-producto.manejador';
 import { ManejadorCambiarProducto } from 'src/aplicacion/producto/cambio/cambiar-producto.manejador';
+import { ManejadorFiltrarProducto } from 'src/aplicacion/producto/consulta/filtrar-producto.manejador';
 
 @Module({
   imports: [TypeOrmModule.forFeature([ProductoEntidad])],
@@ -29,6 +30,7 @@ import { ManejadorCambiarProducto } from 'src/aplicacion/producto/cambio/cambiar
     ManejadorConsultarProducto,
     ManejadorEliminarProducto,
     ManejadorCambiarProducto,
+    ManejadorFiltrarProducto,
   ],
   exports: [
     ServicioRegistrarProducto,
@@ -37,6 +39,7 @@ import { ManejadorCambiarProducto } from 'src/aplicacion/producto/cambio/cambiar
     ManejadorConsultarProducto,
     ManejadorEliminarProducto,
     ManejadorCambiarProducto,
+    ManejadorFiltrarProducto,
     RepositorioProducto,
     DaoProducto,
   ],

@@ -56,4 +56,14 @@ export class DaoProductoPostgres implements DaoProducto {
       throw new NotFoundException('Error del producto, verifique los datos');
     }
   }
+
+  async filtrar(nombreCategoria: string): Promise<ProductoDto[]> {
+    return this.entityManager.query(
+      `SELECT p.nombre, p.precio, p.detalle, c.nombre AS "nombreCategoria", p.nombre_imagen AS "nombreImagen" 
+      FROM PRODUCTO p, CATEGORIA  c
+      WHERE c.id = p.categoria_id 
+      AND c.nombre = $1`,
+      [nombreCategoria],
+    );
+  }
 }
